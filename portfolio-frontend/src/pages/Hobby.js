@@ -5,7 +5,7 @@ import "./Hobby.css";
 
 const Hobby = () => {
   const [hobbies, setHobbies] = useState([]);
-  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a' ];
+  const colors = ['#e1f0c4','#6bab90','#694A38','#55917f','#5e4c5a'];
 
   // Define an array of four HEX colors
   const backendURL = "http://127.0.0.1:8000"; // Local Django Backend

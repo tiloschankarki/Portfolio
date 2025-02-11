@@ -26,7 +26,7 @@ a:hover {
 }
 /* 🌟 Funky Flashcards */
 .flashcard {
-  background: #CDEDF6; /* ✅ Cyan */
+  background: #0e5468; /* ✅ Cyan */
   min-height: 270px;
   max-height: 300px;
   border-radius: 15px;
@@ -68,8 +68,8 @@ a:hover {
 
 /* 🔥 Expanded View */
 .expanded-card {
-  background: linear-gradient(135deg, 042a2b, #c69984);
-  color: white;
+  background: linear-gradient(135deg, #042a2b, #c69984);
+  color: rgb(143, 132, 132);
   padding: 30px;
   border-radius: 12px;
 }

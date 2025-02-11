@@ -1,0 +1,64 @@
+/* Circular Progress Bar - Moved to Top Right */
+.progress-container {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-label {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+  color: #4A90E2;
+  font-weight: bold;
+}
+
+/* Fun Table Styling */
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(75, 120, 19, 0.833);
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;
+}
+
+.fun-table {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgb(108, 96, 79);
+}
+
+.fun-table th {
+  background: #0f0d0d;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px;
+  text-align: center;
+}
+
+.fun-table td {
+  padding: 12px;
+  text-align: center;
+  font-weight: inherit;
+}
+
+/* Hover Effect */
+.fun-table tbody tr:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease-in-out;
+  filter: brightness(1.0);
+}
+
+/* Emoji Column */
+.fun-table tbody td:first-child {
+  font-size: 20px;
+  font-weight: bold;
+}

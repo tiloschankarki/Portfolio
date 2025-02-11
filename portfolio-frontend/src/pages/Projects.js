@@ -8,7 +8,7 @@ const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
 
   // Define an array of four HEX colors
-  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a' ];
+  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a','#694838' ];
   
   useEffect(() => {
     fetchProjects()
