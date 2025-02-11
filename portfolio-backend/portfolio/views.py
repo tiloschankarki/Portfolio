@@ -32,15 +32,16 @@ def get_blog_posts(request):
 @api_view(['GET'])
 def get_education(request):
     coursework = Coursework.objects.all().order_by('-completion_date')
-    degree_progress = DegreeProgress.objects.all()
+    degree_progress = DegreeProgress.objects.first()  # ✅ Fetch a single record
 
     coursework_serializer = CourseworkSerializer(coursework, many=True)
-    degree_progress_serializer = DegreeProgressSerializer(degree_progress, many=True)
+    degree_progress_serializer = DegreeProgressSerializer(degree_progress)
 
     return Response({
         "coursework": coursework_serializer.data,
-        "degree_progress": degree_progress_serializer.data
+        "degree_progress": degree_progress_serializer.data if degree_progress else None  # ✅ Ensure it's not an empty list
     })
+
 
 
 @api_view(['GET'])

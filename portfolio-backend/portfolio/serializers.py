@@ -28,10 +28,13 @@ class CourseworkSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DegreeProgressSerializer(serializers.ModelSerializer):
+    progress = serializers.SerializerMethodField()
     class Meta:
         model = DegreeProgress
         fields = '__all__'
-
+    def get_progress(self, obj):
+        return round(obj.progress_percentage(), 2)
+    
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
