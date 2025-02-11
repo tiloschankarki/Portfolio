@@ -1,0 +1,33 @@
+.project-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, max-height 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 20px;
+  min-height: 100px;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Expanded card on hover */
+.project-card.expanded {
+  max-height: 700px; /* Expand to show extra details */
+}
+
+/* Hide extra details initially */
+.expanded-details {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+/* Show extra details when expanded */
+.expanded-details.visible {
+  opacity: 1;
+  max-height: 600px;
+  max-width: 400px;
+}

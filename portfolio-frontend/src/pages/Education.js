@@ -8,7 +8,6 @@ const Education = () => {
   useEffect(() => {
     fetchEducation()
       .then((data) => {
-        console.log("Fetched Education:", data); // ✅ Debugging log
         setEducation(data);
       })
       .catch((error) => console.error("Error fetching education:", error));

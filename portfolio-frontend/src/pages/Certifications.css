@@ -1,0 +1,12 @@
+.cert-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 12px;
+    height: 210px;
+  }
+  
+  .cert-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  

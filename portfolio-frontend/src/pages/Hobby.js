@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { fetchHobbies } from "../api";
-import { Container, Row, Col, Card, Image } from "react-bootstrap";
-//import "./Hobby.css";
+import { Container, Carousel, Card, Image } from "react-bootstrap";
+import "./Hobby.css";
 
 const Hobby = () => {
   const [hobbies, setHobbies] = useState([]);
+  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a' ];
+
+  // Define an array of four HEX colors
+  const backendURL = "http://127.0.0.1:8000"; // Local Django Backend
 
   useEffect(() => {
     fetchHobbies()
       .then((data) => {
-        console.log("Fetched Hobbies:", data); // ✅ Debugging log
+        console.log("API Response:", data); // Debug API response
         setHobbies(data);
       })
       .catch((error) => console.error("Error fetching hobbies:", error));
@@ -18,23 +22,39 @@ const Hobby = () => {
   return (
     <Container className="mt-4">
       <h2 className="text-center mb-4">Hobbies</h2>
-      <Row>
-        {hobbies.length > 0 ? (
-          hobbies.map((hobby) => (
-            <Col md={4} key={hobby.id}>
-              <Card className="mb-4 shadow-sm hobby-card">
-                {hobby.image && <Image src={`http://127.0.0.1:8000${hobby.image}`} alt={hobby.title} fluid />}
+
+      <Carousel interval={2000}>
+        {hobbies.map((hobby, index) => {
+          const bgColor = colors[index % colors.length];
+          const imageUrl = hobby.image.startsWith("http") 
+            ? hobby.image 
+            : `${backendURL}${hobby.image}`; // Construct full image URL
+
+          console.log("Final Image URL:", imageUrl); // Debugging
+
+          return (
+            <Carousel.Item key={hobby.id}>
+              <Card
+                className="hobby-card-large text-center"
+                style={{ backgroundColor: bgColor }}
+              >
+                {hobby.image && (
+                  <Image
+                    src={imageUrl}
+                    className="hobby-image"
+                    alt={hobby.title}
+                    onError={(e) => { e.target.src = "/placeholder.png"; }} // Handle broken images
+                  />
+                )}
                 <Card.Body>
-                  <Card.Title>{hobby.title}</Card.Title>  {/* ✅ Fixed: use `title` instead of `name` */}
+                  <Card.Title>{hobby.title}</Card.Title>
                   <Card.Text>{hobby.description}</Card.Text>
                 </Card.Body>
               </Card>
-            </Col>
-          ))
-        ) : (
-          <p>No hobbies found.</p>
-        )}
-      </Row>
+            </Carousel.Item>
+          );
+        })}
+      </Carousel>
     </Container>
   );
 };

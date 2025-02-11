@@ -1,13 +1,75 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+/* 🎨 Buttons */
+button {
+  background-color: #5e4c5a; /* ✅ Orange (Crayola) */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button:hover {
+  background-color: #5e4c6d; /* ✅ Chilli Red */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 💡 Links */
+a {
+  color: #CDEDF6; /* ✅ Cyan */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #c7f7ff; /* ✅ Orange */
+}
+/* 🌟 Funky Flashcards */
+.flashcard {
+  background: #CDEDF6; /* ✅ Cyan */
+  min-height: 270px;
+  max-height: 300px;
+  border-radius: 15px;
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #55917f;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🌀 Hover Effect */
+.flashcard:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 25px rgba(255, 159, 28, 0.3);
+  border: 2px solid #474747; /* ✅ Orange */
+}
+
+/* 🎨 Flashcard Category Colors */
+.project-card {
+  border-left: 6px solid #ef7b45; /* ✅ Orange */
+  background: linear-gradient(135deg, 042a2b, #00A8CC);
+}
+
+.cert-card {
+  border-left: 6px solid #5eb1bf; /* ✅ Moonstone */
+  background: #e1f0c4;
+}
+
+.hobby-card {
+  border-left: 6px solid #d84727; /* ✅ Chilli Red */
+  background: linear-gradient(135deg, 042a2b, #d84727);
+}
+
+/* 🔥 Expanded View */
+.expanded-card {
+  background: linear-gradient(135deg, 042a2b, #c69984);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
 }
