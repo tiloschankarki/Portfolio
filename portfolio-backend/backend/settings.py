@@ -24,20 +24,20 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-local-secret-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Default to True for local dev
 
 # ✅ Allowed Hosts (Update after deployment)
-ALLOWED_HOSTS = ['tiloschan-portfolio.onrender.com']
+ALLOWED_HOSTS = ['tfolio.onrender.com']
 
 # ✅ CORS & CSRF Settings
 CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://tiloschan-portfolio.onrender.com",
+    "https://tfolio.onrender.com",
     "https://your-frontend.vercel.app",
     "http://localhost:3000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://tiloschan-portfolio.onrender.com",
+    "https://tfolio.onrender.com",
     "https://your-frontend.vercel.app"
 ]
 
