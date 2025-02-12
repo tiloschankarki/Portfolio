@@ -60,19 +60,19 @@
     background: #764109;
     border: none;
     font-size: 18px;
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     transition: background 0.3s ease-in-out;
     border-radius: 8px;
   }
   
   .submit-button:hover {
-    background: #357ABD;
+    background: #1088f1;
   }
   
   /* ⏳ Loading Spinner */
   .submit-button:disabled {
-    background: #ccc;
+    background: #d7d6d6;
     cursor: not-allowed;
   }
   

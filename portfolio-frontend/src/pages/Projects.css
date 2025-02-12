@@ -16,7 +16,9 @@
 .project-card.expanded {
   max-height: 700px; /* Expand to show extra details */
 }
-
+h3 {
+  text-align: center;
+}
 /* Hide extra details initially */
 .expanded-details {
   opacity: 0;

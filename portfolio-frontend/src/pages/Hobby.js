@@ -5,7 +5,7 @@ import "./Hobby.css";
 
 const Hobby = () => {
   const [hobbies, setHobbies] = useState([]);
-  const colors = ['#e1f0c4','#6bab90','#694A38','#55917f','#5e4c5a'];
+  const colors = ['#6bab90','#e1f0c4','#55917f',];
 
   // Define an array of four HEX colors
   const backendURL = "http://127.0.0.1:8000"; // Local Django Backend
@@ -21,7 +21,7 @@ const Hobby = () => {
 
   return (
     <Container className="mt-4">
-      <h2 className="text-center mb-4">Hobbies</h2>
+      <h3 className="text-center mb-4">Hobbies</h3>
 
       <Carousel interval={2000}>
         {hobbies.map((hobby, index) => {

@@ -9,32 +9,39 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-import dj_database_url
 
+import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import os
+# ✅ SECURITY: Use an environment variable for the secret key in production
+SECRET_KEY = os.getenv("SECRET_KEY", "your-local-secret-key")
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# ✅ SECURITY: Set DEBUG to False for production
+DEBUG = os.getenv("DEBUG", "True") == "True"  # Default to True for local dev
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# ✅ Allowed Hosts (Update after deployment)
+ALLOWED_HOSTS = ['tiloschan-portfolio.onrender.com']
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z0#$@=&hx9n#27id%e9(ilgx(x#4)%-4-@o-2bl_@me_qzpat0'
+# ✅ CORS & CSRF Settings
+CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_CREDENTIALS = True
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+CORS_ALLOWED_ORIGINS = [
+    "https://tiloschan-portfolio.onrender.com",
+    "https://your-frontend.vercel.app",
+    "http://localhost:3000",
+]
 
-ALLOWED_HOSTS = ["tiloschan-portfolio.onrender.com", "localhost"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://tiloschan-portfolio.onrender.com",
+    "https://your-frontend.vercel.app"
+]
 
-
-# Application definition
-
+# ✅ Application definition
 INSTALLED_APPS = [
     'corsheaders',
     'portfolio',
@@ -56,6 +63,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -78,65 +90,41 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# ✅ Database Configuration: PostgreSQL for Production, SQLite for Local Development
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# ✅ Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+# ✅ Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
+# ✅ Serve Media Files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
+# ✅ Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# ✅ REST Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',  # Force JSON output
     ),
 }
-CORS_ALLOW_ALL_ORIGINS = True 
-CORS_ALLOW_CREDENTIALS = True
-
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# Enable Whitenoise for static file handling
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # Enables CSRF protection over HTTPS
+X_FRAME_OPTIONS = "DENY"  # Prevents clickjacking attacks

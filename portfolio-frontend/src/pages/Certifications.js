@@ -8,38 +8,25 @@ const Certifications = () => {
   const [selectedCertification, setSelectedCertification] = useState(null);
 
   // Define an array of four HEX colors
-  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a', '#694838' ];
+  const colors = ['#6bab90','#e1f0c4','#55917f',];
   useEffect(() => {
     fetchCertifications()
       .then((data) => setCertifications(data))
       .catch((error) => console.error("Error fetching certifications:", error));
   }, []);
 
-  // Function to determine text color based on background brightness
-  const getTextColor = (bgColor) => {
-    const hex = bgColor.replace("#", "");
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    // Calculate brightness using the luminance formula
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness > 128 ? "#000000" : "#FFFFFF"; // Use black for bright colors, white for dark colors
-  };
-
   return (
     <Container className="mt-4">
-      <h2>Certifications</h2>
+      <h3>Certifications</h3>
       <Row>
         {certifications.map((cert, index) => {
           const bgColor = colors[index % colors.length];
-          const textColor = getTextColor(bgColor);
 
           return (
             <Col md={4} key={cert.id}>
               <Card
                 className="mb-4 flashcard cert-card"
-                style={{ backgroundColor: bgColor, color: textColor }}
+                style={{ backgroundColor: bgColor, color:colors }}
                 onClick={() => setSelectedCertification(cert)}
               >
                 <Card.Body>

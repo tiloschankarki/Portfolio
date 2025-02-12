@@ -8,7 +8,7 @@ const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
 
   // Define an array of four HEX colors
-  const colors = ['#e1f0c4','#6bab90','#55917f','#5e4c5a','#694838' ];
+  const colors = ['#6bab90','#e1f0c4','#55917f', ];
   
   useEffect(() => {
     fetchProjects()
@@ -19,31 +19,17 @@ const Projects = () => {
       .catch((error) => console.error("Error fetching projects:", error));
   }, []);
 
-  // Function to determine text color based on background brightness
-  const getTextColor = (bgColor) => {
-    const hex = bgColor.replace("#", "");
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    // Calculate brightness using the luminance formula
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness > 128 ? "#000000" : "#FFFFFF"; // Use black for bright colors, white for dark colors
-  };
-
   return (
     <Container className="mt-4">
-      <h2>Projects</h2>
+      <h3>Projects</h3>
       <Row>
         {projects.map((project, index) => {
           const bgColor = colors[index % colors.length]; // Loop colors
-          const textColor = getTextColor(bgColor); // Get suitable text color
-
           return (
             <Col md={4} key={project.id}>
               <Card
                 className={`mb-4 flashcard project-card ${hoveredProject === project.id ? "expanded" : ""}`}
-                style={{ backgroundColor: bgColor, color: textColor }}
+                style={{ backgroundColor: bgColor, color: colors }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
