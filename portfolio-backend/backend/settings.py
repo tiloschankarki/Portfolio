@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 import dj_database_url
+from dotenv import load_dotenv
 from pathlib import Path
-
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -89,7 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 # ✅ Database Configuration: PostgreSQL for Production, SQLite for Local Development
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
@@ -110,7 +111,7 @@ USE_I18N = True
 USE_TZ = True
 
 # ✅ Serve Media Files
-MEDIA_URL = "/media/"
+MEDIA_URL = "/media/hobbies"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # ✅ Default primary key field type
