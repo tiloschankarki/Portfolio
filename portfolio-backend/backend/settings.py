@@ -111,7 +111,7 @@ USE_I18N = True
 USE_TZ = True
 
 # ✅ Serve Media Files
-MEDIA_URL = "/media/hobbies"
+MEDIA_URL = "/media/hobbies/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # ✅ Default primary key field type
