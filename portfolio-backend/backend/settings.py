@@ -126,5 +126,3 @@ SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True  # Enables CSRF protection over HTTPS
 X_FRAME_OPTIONS = "DENY"  # Prevents clickjacking attacks
 
-MEDIA_URL = "/upmedia/"  # Even if you move images, keep a separate MEDIA_URL
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  
