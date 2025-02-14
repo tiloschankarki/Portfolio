@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";  // Ensure this matches Django's URLs
+const API_BASE_URL = "https://tfolio.onrender.com/api";  // Ensure this matches Django's URLs
 
 export const fetchProjects = async () => {
   try {

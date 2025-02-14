@@ -8,7 +8,7 @@ const Hobby = () => {
   const colors = ['#6bab90','#e1f0c4','#55917f',];
 
   // Define an array of four HEX colors
-  const backendURL = "http://127.0.0.1:8000"; // Local Django Backend
+  const backendURL = "https://tfolio.onrender.com/"; // Local Django Backend
 
   useEffect(() => {
     fetchHobbies()
@@ -29,8 +29,6 @@ const Hobby = () => {
           const imageUrl = hobby.image.startsWith("http") 
             ? hobby.image 
             : `${backendURL}${hobby.image}`; // Construct full image URL
-
-          console.log("Final Image URL:", imageUrl); // Debugging
 
           return (
             <Carousel.Item key={hobby.id}>

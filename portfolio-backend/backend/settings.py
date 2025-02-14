@@ -67,8 +67,8 @@ MIDDLEWARE = [
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collects all static files
+MEDIA_URL = STATIC_URL
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -109,10 +109,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
-# ✅ Serve Media Files
-MEDIA_URL = "/media/hobbies/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # ✅ Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
