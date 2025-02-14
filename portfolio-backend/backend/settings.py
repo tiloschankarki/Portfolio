@@ -119,12 +119,12 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',  # Force JSON output
     ),
 }
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True  # Enables CSRF protection over HTTPS
 X_FRAME_OPTIONS = "DENY"  # Prevents clickjacking attacks
 
-MEDIA_URL = "/media/"  # Even if you move images, keep a separate MEDIA_URL
+MEDIA_URL = "/upmedia/"  # Even if you move images, keep a separate MEDIA_URL
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")  
