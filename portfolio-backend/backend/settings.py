@@ -68,7 +68,7 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Collects all static files
-MEDIA_URL = STATIC_URL
+#MEDIA_URL = STATIC_URL
 
 ROOT_URLCONF = 'backend.urls'
 
