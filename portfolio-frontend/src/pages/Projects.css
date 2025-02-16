@@ -37,8 +37,8 @@ h3 {
 
 /* Project Button Styling */
 .project-button {
-  background-color: #ff6600; /* Bright orange */
-  color: white;
+  background-color: #ad7cc6; /* Bright orange */
+  color: rgb(208, 205, 205);
   border: none;
   padding: 10px 15px;
   font-size: 14px;
@@ -51,5 +51,5 @@ h3 {
 }
 
 .project-button:hover {
-  background-color: #cc5200; /* Darker orange */
+  background-color: #7548b8; /* Darker orange */
 }
