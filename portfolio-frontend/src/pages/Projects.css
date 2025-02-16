@@ -31,7 +31,7 @@ h3 {
 /* Show extra details when expanded */
 .expanded-details.visible {
   opacity: 1;
-  max-height: 600px;
+  max-height: 650px;
   max-width: 400px;
 }
 
