@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { fetchProjects } from "../api";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "./Projects.css";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [hoveredProject, setHoveredProject] = useState(null);
 
-  // Define an array of four HEX colors
-  const colors = ['#6bab90','#e1f0c4','#55917f', ];
-  
+  // Define an array of HEX colors
+  const colors = ['#6bab90', '#e1f0c4', '#55917f'];
+
   useEffect(() => {
     fetchProjects()
       .then((data) => {
@@ -29,7 +29,7 @@ const Projects = () => {
             <Col md={4} key={project.id}>
               <Card
                 className={`mb-4 flashcard project-card ${hoveredProject === project.id ? "expanded" : ""}`}
-                style={{ backgroundColor: bgColor, color: colors }}
+                style={{ backgroundColor: bgColor, color: "#fff" }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
@@ -42,6 +42,13 @@ const Projects = () => {
                     <p><strong>Role:</strong> {project.role}</p>
                     <p><strong>Skills Learned:</strong> {project.skills_learned}</p>
                     <p><strong>Category:</strong> {project.category}</p>
+                    
+                    {/* Take Me to Project Button (Only if repo_link is available) */}
+                    {project.repo_link && (
+                      <a href={project.repo_link} target="_blank" rel="noopener noreferrer">
+                        <Button className="project-button">Take Me to Project</Button>
+                      </a>
+                    )}
                   </div>
                 </Card.Body>
               </Card>

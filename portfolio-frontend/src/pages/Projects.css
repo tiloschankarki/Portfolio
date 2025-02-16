@@ -5,6 +5,7 @@
   overflow: hidden;
   padding: 20px;
   min-height: 100px;
+  position: relative;
 }
 
 .project-card:hover {
@@ -14,11 +15,12 @@
 
 /* Expanded card on hover */
 .project-card.expanded {
-  max-height: 700px; /* Expand to show extra details */
+  max-height: 700px;
 }
 h3 {
   text-align: center;
 }
+
 /* Hide extra details initially */
 .expanded-details {
   opacity: 0;
@@ -32,4 +34,23 @@ h3 {
   opacity: 1;
   max-height: 600px;
   max-width: 400px;
+}
+
+/* Project Button Styling */
+.project-button {
+  background-color: #ff6600; /* Bright orange */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.project-button:hover {
+  background-color: #cc5200; /* Darker orange */
 }
