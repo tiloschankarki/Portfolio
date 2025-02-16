@@ -29,7 +29,7 @@ const Projects = () => {
             <Col md={4} key={project.id}>
               <Card
                 className={`mb-4 flashcard project-card ${hoveredProject === project.id ? "expanded" : ""}`}
-                style={{ backgroundColor: bgColor, color: "#fff" }}
+                style={{ backgroundColor: bgColor, color: "#000" }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
@@ -42,13 +42,10 @@ const Projects = () => {
                     <p><strong>Role:</strong> {project.role}</p>
                     <p><strong>Skills Learned:</strong> {project.skills_learned}</p>
                     <p><strong>Category:</strong> {project.category}</p>
-                    
-                    {/* Take Me to Project Button (Only if repo_link is available) */}
-                    {project.repo_link && (
                       <a href={project.repo_link} target="_blank" rel="noopener noreferrer">
                         <Button className="project-button">Take Me to Project</Button>
                       </a>
-                    )}
+                
                   </div>
                 </Card.Body>
               </Card>
