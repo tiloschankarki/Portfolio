@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-local-secret-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Default to True for local dev
 
 # ✅ Allowed Hosts (Update after deployment)
-ALLOWED_HOSTS = ['tfolio.onrender.com']
+ALLOWED_HOSTS = ['tfolio.onrender.com', '3.16.45.232']
 
 # ✅ CORS & CSRF Settings
 CORS_ALLOW_ALL_ORIGINS = True 
