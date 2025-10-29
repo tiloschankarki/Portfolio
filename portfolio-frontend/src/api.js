@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://3.16.45.232/api/";  // Ensure this matches Django's URLs
+const API_BASE_URL = "https://tfolio.duckdns.org/api/";  // Ensure this matches Django's URLs
 
 export const fetchProjects = async () => {
   try {
