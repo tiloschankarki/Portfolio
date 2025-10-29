@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-local-secret-key")
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Default to True for local dev
 
 # ✅ Allowed Hosts (Update after deployment)
-ALLOWED_HOSTS = ['tfolio.onrender.com', '3.16.45.232']
+ALLOWED_HOSTS = ['*']
 
 # ✅ CORS & CSRF Settings
 CORS_ALLOW_ALL_ORIGINS = True 
@@ -38,7 +38,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://tfolio.onrender.com",
+    "https://tfolio.onrender.com", "http://3.16.45.232",
     "https://your-frontend.vercel.app"
 ]
 
@@ -122,7 +122,7 @@ REST_FRAMEWORK = {
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
-CSRF_COOKIE_SECURE = True  # Enables CSRF protection over HTTPS
+SESSION_COOKIE_SECURE = False  # Ensures cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = False  # Enables CSRF protection over HTTPS
 X_FRAME_OPTIONS = "DENY"  # Prevents clickjacking attacks
 
