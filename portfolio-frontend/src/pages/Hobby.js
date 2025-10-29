@@ -8,7 +8,7 @@ const Hobby = () => {
   const colors = ['#6bab90','#e1f0c4','#55917f',];
 
   // Define an array of four HEX colors
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://tfolio.duckdns.org/api";
+  const API_BASE_URL = "https://tfolio.duckdns.org/api";
  // Local Django Backend
 
   useEffect(() => {
