@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { fetchCertifications } from "../api";
-import { Container, Row, Col, Card, Modal, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Modal, Button, Badge } from "react-bootstrap";
 import "./Certifications.css";
 
 const Certifications = () => {
   const [certifications, setCertifications] = useState([]);
   const [selectedCertification, setSelectedCertification] = useState(null);
 
-  // Define an array of four HEX colors
-  const colors = ['#6bab90','#e1f0c4','#55917f',];
+  const colors = ["#028090", "#f45b69", "#b8e0d2", "#456990"];
+
   useEffect(() => {
     fetchCertifications()
       .then((data) => setCertifications(data))
@@ -16,24 +16,49 @@ const Certifications = () => {
   }, []);
 
   return (
-    <Container className="mt-4">
-      <h3>Certifications</h3>
-      <Row>
+    <Container className="certifications-section py-5">
+      <h2 className="section-title text-center mb-4">Certifications</h2>
+      <Row className="g-4">
         {certifications.map((cert, index) => {
-          const bgColor = colors[index % colors.length];
-
+          const accentColor = colors[index % colors.length];
           return (
-            <Col md={4} key={cert.id}>
+            <Col md={6} lg={4} key={cert.id}>
               <Card
-                className="mb-4 flashcard cert-card"
-                style={{ backgroundColor: bgColor, color:colors }}
+                className="cert-card shadow-sm h-100"
                 onClick={() => setSelectedCertification(cert)}
               >
+                <div
+                  className="accent-bar"
+                  style={{ backgroundColor: accentColor }}
+                ></div>
                 <Card.Body>
                   <Card.Title>{cert.name}</Card.Title>
-                  <Card.Text><strong>Issued By:</strong> {cert.organization}</Card.Text>
-                  <Card.Text><strong>Date:</strong> {cert.issue_date}</Card.Text>
-                  <Card.Text><strong>Skills Covered:</strong> {cert.skills_covered}</Card.Text>
+                  <Card.Subtitle className="text-muted mb-2">
+                    {cert.organization}
+                  </Card.Subtitle>
+                  <Card.Text className="small text-muted">
+                    {cert.issue_date && (
+                      <span>
+                        <strong>Date:</strong>{" "}
+                        {new Date(cert.issue_date).toLocaleDateString()}
+                      </span>
+                    )}
+                  </Card.Text>
+
+                  {/* Skills badges */}
+                  {cert.skills_covered && (
+                    <div className="skills-section">
+                      {cert.skills_covered.split(",").map((skill, i) => (
+                        <Badge bg="light" text="dark" className="me-1 mb-1" key={i}>
+                          {skill.trim()}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+
+                  <Button variant="link" className="view-details-btn p-0 mt-2">
+                    View Details →
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -41,18 +66,36 @@ const Certifications = () => {
         })}
       </Row>
 
+      {/* Modal */}
       {selectedCertification && (
-        <Modal show={true} onHide={() => setSelectedCertification(null)} size="lg" centered>
+        <Modal
+          show={true}
+          onHide={() => setSelectedCertification(null)}
+          size="lg"
+          centered
+        >
           <Modal.Header closeButton>
             <Modal.Title>{selectedCertification.name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p><strong>Issued By:</strong> {selectedCertification.organization}</p>
-            <p><strong>Issue Date:</strong> {selectedCertification.issue_date}</p>
-            <p><strong>Skills Covered:</strong> {selectedCertification.skills_covered}</p>
+            <p>
+              <strong>Issued By:</strong> {selectedCertification.organization}
+            </p>
+            <p>
+              <strong>Issue Date:</strong>{" "}
+              {new Date(selectedCertification.issue_date).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Skills Covered:</strong> {selectedCertification.skills_covered}
+            </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setSelectedCertification(null)}>Close</Button>
+            <Button
+              variant="secondary"
+              onClick={() => setSelectedCertification(null)}
+            >
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
       )}

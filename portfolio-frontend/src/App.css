@@ -1,92 +1,69 @@
-/* 🌟 Hero Section */
-.hero-section {
-  height: 100vh;
-  background: antiquewhite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgb(3, 0, 57);
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
-}
-.hero-title {
-  font-size: 3rem;
-  font-weight: bold;
+/* 🌐 Global Layouts */
+body {
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  color: #111827;
+  margin: 0;
+  padding: 0;
 }
 
-.hero-subtitle {
-  font-size: 1.5rem;
-  margin-top: 10px;
-}
-
-.cta-button {
-  margin-top: 20px;
-  padding: 12px 24px;
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  background-color: azure;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.cta-button:hover {
-  background: #148714;
-  transform: scale(1.1);
-}
-
-/* 🔹 Navbar Styling */
+/* 🔹 Navbar */
 .custom-navbar {
-  background: #0b2027 !important;
-  backdrop-filter: blur(10px);
+  background: #028090 !important;
   padding: 15px;
 }
 
+.custom-navbar .navbar-brand {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
 .custom-navbar .nav-link {
-  font-size: 1rem;
-  font-weight: bold;
-  color: rgb(217, 240, 243) !important;
-  transition: color 0.3s ease-in-out;
+  color: #e2e8f0 !important;
+  transition: color 0.3s ease;
 }
 
 .custom-navbar .nav-link:hover {
-  color: #5bc2b6 !important;
+  color: #b8e0d2 !important;
 }
 
-.custom-navbar .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #e6e6e6 !important;
+/* 🎯 Primary Buttons */
+.primary-btn {
+  background-color: #f45b69;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  color: white;
+  transition: background 0.3s ease;
 }
 
-/* 🔄 Smooth Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.primary-btn:hover {
+  background-color: #d14a56;
 }
-/* 📱 Social Media Icons */
+
+/* 🤝 Social Icons */
 .social-links {
   margin-top: 20px;
 }
 
 .social-links a {
   font-size: 1.8rem;
-  color: rgb(11, 7, 7);
+  color: #0a3946;
   margin: 0 15px;
-  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .social-links a:hover {
-  color: #FFD166;
-  transform: scale(1.2);
+  color: #f45b69;
+  transform: scale(1.1);
 }
-/* 🌟 Profile Picture (Circular Avatar) */
-.hero-avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgb(0, 0, 0);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-  animation: fadeIn 1s ease-in-out;
+
+/* ✨ Section Title */
+.section-title {
+  color: #0a3946;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }

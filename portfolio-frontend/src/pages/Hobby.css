@@ -1,26 +1,49 @@
-/* Make feature cards larger */
-.hobby-card-large {
-  width: 70%;
-  margin: auto;
-  border-radius: 12px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  min-height: 600px; /* Ensures consistent size */
+.hobbies-section {
+  background: #f9fafb;
+  min-height: 100vh;
 }
 
-.hobby-card-large:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+.section-title {
+  color: #0a3946;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
 }
 
-/* Ensure image fits well */
-.hobby-image {
-  width: 80%;
-  max-height: 450px;
+/* Card layout */
+.hobby-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hobby-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Accent bar (top color strip) */
+.accent-bar {
+  height: 6px;
+  width: 100%;
+}
+
+/* Image styling */
+.hobby-img-top {
+  width: 100%;
+  height: 260px;
   object-fit: cover;
-  border-radius: 12px;
+}
+
+/* Text styling */
+.card-title {
+  font-weight: 600;
+  color: #111827;
+}
+
+.card-text {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

@@ -1,75 +1,38 @@
+/* 🌎 Universal Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* 🎨 Buttons */
+/* 🧩 Base Styles */
+body {
+  background-color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  color: #111827;
+}
+
+/* ✨ Links */
+a {
+  color: #028090;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #f45b69;
+}
+
+/* 🎛️ Buttons */
 button {
-  background-color: #5e4c5a; /* ✅ Orange (Crayola) */
+  background-color: #028090;
   color: white;
+  border: none;
   padding: 10px 20px;
   border-radius: 8px;
-  border: none;
   transition: all 0.3s ease-in-out;
 }
 
 button:hover {
-  background-color: #5e4c6d; /* ✅ Chilli Red */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* 💡 Links */
-a {
-  color: #CDEDF6; /* ✅ Cyan */
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
-}
-
-a:hover {
-  color: #c7f7ff; /* ✅ Orange */
-}
-/* 🌟 Funky Flashcards */
-.flashcard {
-  background: #0e5468; /* ✅ Cyan */
-  min-height: 270px;
-  max-height: 300px;
-  border-radius: 15px;
-  transition: transform 0.5s ease-in-out;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #55917f;
-  text-align: center;
-  padding: 20px;
-  border: 2px solid transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 🌀 Hover Effect */
-.flashcard:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 25px rgba(255, 159, 28, 0.3);
-  border: 2px solid #474747; /* ✅ Orange */
-}
-
-/* 🎨 Flashcard Category Colors */
-.project-card {
-  border-left: 6px solid #ef7b45; /* ✅ Orange */
-  background: linear-gradient(135deg, 042a2b, #00A8CC);
-}
-
-.cert-card {
-  border-left: 6px solid #5eb1bf; /* ✅ Moonstone */
-  background: #e1f0c4;
-}
-
-.hobby-card {
-  border-left: 6px solid #d84727; /* ✅ Chilli Red */
-  background: linear-gradient(135deg, 042a2b, #d84727);
-}
-
-/* 🔥 Expanded View */
-.expanded-card {
-  background: linear-gradient(135deg, #042a2b, #c69984);
-  color: rgb(143, 132, 132);
-  padding: 30px;
-  border-radius: 12px;
+  background-color: #056b78;
 }

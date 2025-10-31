@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchBlogPosts } from "../api";
-import { Container, Row, Col, Card, Modal, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Modal, Button, Badge } from "react-bootstrap";
 import "./Blog.css";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
 
-  // Define color palette for feature cards (looping)
-  const colors = ['#55917f','#694838','#5e4c5a','#e1f0c4','#6bab90' ];
-  ;
+  const colors = ["#028090", "#f45b69", "#b8e0d2", "#456990"];
 
   useEffect(() => {
     fetchBlogPosts()
@@ -18,24 +16,34 @@ const Blog = () => {
   }, []);
 
   return (
-    <Container className="mt-4">
-      <h2 className="text-center mb-4">Blog</h2>
-      <Row>
-        {blogs.map((blog, index) => {
-          const bgColor = colors[index % colors.length]; // Loop colors
+    <Container className="blog-section py-5">
+      <h2 className="section-title text-center mb-4">Blog & Articles</h2>
 
+      <Row className="g-4">
+        {blogs.map((blog, index) => {
+          const accentColor = colors[index % colors.length];
           return (
-            <Col md={6} key={blog.id}>
-              <Card
-                className="mb-4 blog-card"
-                style={{ backgroundColor: bgColor }}
-                onClick={() => setSelectedBlog(blog)}
-              >
+            <Col md={6} lg={4} key={blog.id}>
+              <Card className="blog-card shadow-sm h-100">
+                <div className="accent-bar" style={{ backgroundColor: accentColor }}></div>
                 <Card.Body>
-                  <div className="blog-header">
-                    <Card.Title className="blog-title">{blog.title}</Card.Title>
-                    <span className="reading-time">⏳ {blog.reading_time} min</span>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <Badge bg="light" text="dark">
+                      {blog.category || "General"}
+                    </Badge>
+                    <span className="read-time">⏱ {blog.reading_time} min</span>
                   </div>
+                  <Card.Title>{blog.title}</Card.Title>
+                  <Card.Text className="text-muted small mb-3">
+                    {blog.description?.slice(0, 100)}...
+                  </Card.Text>
+                  <Button
+                    variant="link"
+                    className="read-btn p-0"
+                    onClick={() => setSelectedBlog(blog)}
+                  >
+                    Read More →
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -43,18 +51,22 @@ const Blog = () => {
         })}
       </Row>
 
-      {/* Full-Screen Modal for Blog Reading */}
       {selectedBlog && (
-        <Modal show={true} onHide={() => setSelectedBlog(null)} size="lg" centered>
+        <Modal show onHide={() => setSelectedBlog(null)} size="lg" centered>
           <Modal.Header closeButton>
             <Modal.Title>{selectedBlog.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p><strong>Published:</strong> {selectedBlog.date}</p>
+            <p>
+              <strong>Published:</strong>{" "}
+              {new Date(selectedBlog.date).toLocaleDateString()}
+            </p>
             <p>{selectedBlog.content}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setSelectedBlog(null)}>Close</Button>
+            <Button variant="secondary" onClick={() => setSelectedBlog(null)}>
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
       )}

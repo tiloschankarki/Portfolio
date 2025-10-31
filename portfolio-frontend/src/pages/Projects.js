@@ -1,52 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { fetchProjects } from "../api";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Badge } from "react-bootstrap";
 import "./Projects.css";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
-  const [hoveredProject, setHoveredProject] = useState(null);
 
-  // Define an array of HEX colors
-  const colors = ['#6bab90', '#e1f0c4', '#55917f'];
+  const colors = ["#028090", "#f45b69", "#b8e0d2", "#456990"]; // accent bar palette
 
   useEffect(() => {
     fetchProjects()
       .then((data) => {
-        console.log("API Response:", data); // Debug API response
+        console.log("API Response:", data);
         setProjects(data);
       })
       .catch((error) => console.error("Error fetching projects:", error));
   }, []);
 
   return (
-    <Container className="mt-4">
-      <h3>Projects</h3>
-      <Row>
+    <Container className="projects-container py-5">
+      <h2 className="page-title mb-4">Featured Projects</h2>
+      <Row className="g-4">
         {projects.map((project, index) => {
-          const bgColor = colors[index % colors.length]; // Loop colors
+          const accentColor = colors[index % colors.length];
           return (
-            <Col md={4} key={project.id}>
-              <Card
-                className={`mb-4 flashcard project-card ${hoveredProject === project.id ? "expanded" : ""}`}
-                style={{ backgroundColor: bgColor, color: "#000" }}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
+            <Col md={4} sm={6} xs={12} key={project.id}>
+              <Card className="project-card shadow-sm h-100">
+                {/* Accent color bar */}
+                <div className="accent-bar" style={{ backgroundColor: accentColor }}></div>
                 <Card.Body>
-                  <Card.Title>{project.title}</Card.Title>
-                  {/* Expand on hover to show extra details */}
-                  <div className={`expanded-details ${hoveredProject === project.id ? "visible" : ""}`}>
-                    <p><strong>Description:</strong> {project.description}</p>
-                    <p><strong>Tech Stack:</strong> {project.tech_stack}</p>
-                    <p><strong>Role:</strong> {project.role}</p>
-                    <p><strong>Skills Learned:</strong> {project.skills_learned}</p>
-                    <p><strong>Category:</strong> {project.category}</p>
-                      <a href={project.repo_link} target="_blank" rel="noopener noreferrer">
-                        <Button className="project-button">Take Me to Project</Button>
-                      </a>
-                
+                  <Card.Title className="fw-semibold mb-2">{project.title}</Card.Title>
+                  <Card.Text className="text-muted small mb-3">
+                    {project.description?.slice(0, 100)}...
+                  </Card.Text>
+
+                  <div className="tech-stack mb-3">
+                    {project.tech_stack &&
+                      project.tech_stack.split(",").map((tech, i) => (
+                        <Badge bg="light" text="dark" key={i} className="me-1 mb-1 tech-badge">
+                          {tech.trim()}
+                        </Badge>
+                      ))}
                   </div>
+
+                  {project.repo_link && (
+                    <a
+                      href={project.repo_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="view-btn"
+                    >
+                      View Project ↗
+                    </a>
+                  )}
                 </Card.Body>
               </Card>
             </Col>

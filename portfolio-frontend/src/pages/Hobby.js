@@ -1,48 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { fetchHobbies } from "../api";
-import { Container, Carousel, Card, Image } from "react-bootstrap";
+import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import "./Hobby.css";
 
 const Hobby = () => {
   const [hobbies, setHobbies] = useState([]);
-  const colors = ['#6bab90','#e1f0c4','#55917f',];
-
-  // Define an array of four HEX colors
+  const colors = ["#028090", "#f45b69", "#b8e0d2", "#456990"];
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://tfolio.duckdns.org/api";
- // Local Django Backend
 
   useEffect(() => {
     fetchHobbies()
-      .then((data) => {
-        setHobbies(data);
-      })
+      .then((data) => setHobbies(data))
       .catch((error) => console.error("Error fetching hobbies:", error));
   }, []);
 
   return (
-    <Container className="mt-4">
-      <h3 className="text-center mb-4">Hobbies</h3>
-
-      <Carousel interval={2000}>
+    <Container className="hobbies-section py-5">
+      <h2 className="section-title mb-4 text-center">Hobbies & Interests</h2>
+      <Row className="g-4">
         {hobbies.map((hobby, index) => {
-          const bgColor = colors[index % colors.length];
-          
-        const imageUrl = hobby.image.startsWith("http")
-          ? hobby.image 
-                : `${API_BASE_URL}/static/${hobby.image.replace(/^\/|static\//g, "")}`; // Construct full image URL
-                console.log("Generated Image URL:", imageUrl); 
+          const accentColor = colors[index % colors.length];
+          const imageUrl = hobby.image.startsWith("http")
+            ? hobby.image
+            : `${API_BASE_URL}/static/${hobby.image.replace(/^\/|static\//g, "")}`;
+
           return (
-            <Carousel.Item key={hobby.id}>
-              <Card
-                className="hobby-card-large text-center"
-                style={{ backgroundColor: bgColor }}
-              >
+            <Col md={6} lg={4} key={hobby.id}>
+              <Card className="hobby-card shadow-sm h-100">
+                <div
+                  className="accent-bar"
+                  style={{ backgroundColor: accentColor }}
+                ></div>
                 {hobby.image && (
                   <Image
                     src={imageUrl}
-                    className="hobby-image"
+                    className="hobby-img-top"
                     alt={hobby.title}
-                    onError={(e) => { e.target.src = "/placeholder.png"; }} // Handle broken images
+                    onError={(e) => {
+                      e.target.src = "/placeholder.png";
+                    }}
                   />
                 )}
                 <Card.Body>
@@ -50,10 +46,10 @@ const Hobby = () => {
                   <Card.Text>{hobby.description}</Card.Text>
                 </Card.Body>
               </Card>
-            </Carousel.Item>
+            </Col>
           );
         })}
-      </Carousel>
+      </Row>
     </Container>
   );
 };

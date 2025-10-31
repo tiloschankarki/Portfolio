@@ -1,40 +1,44 @@
-/* Blog Feature Card Styling */
+.blog-section {
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.section-title {
+  color: #0a3946;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
 .blog-card {
-    cursor: pointer;
-    border-radius: 12px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    padding: 20px;
-    color: white;
-    width: 900px;
-  }
- 
-  .blog-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Blog Header Layout (Title + Reading Time Side by Side) */
-  .blog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .blog-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .reading-time {
-    font-size: 14px;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 5px 10px;
-    border-radius: 8px;
-  }
-  
-  /* Modal Styling */
-  .modal-title {
-    font-weight: bold;
-  }
-  
+  background: #ffffff;
+  border-radius: 16px;
+  border: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.accent-bar {
+  height: 6px;
+  width: 100%;
+}
+
+.read-time {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.read-btn {
+  color: #028090;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.read-btn:hover {
+  text-decoration: underline;
+}

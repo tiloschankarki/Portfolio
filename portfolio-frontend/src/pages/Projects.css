@@ -1,55 +1,85 @@
+/* ---------- Container ---------- */
+.projects-container {
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+/* ---------- Title ---------- */
+h2.page-title {
+  text-align: center;
+  color: #0a3946;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------- Card ---------- */
 .project-card {
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, max-height 0.3s ease-in-out;
-  cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
+  background: #ffffff;
+  border-radius: 16px;
   padding: 20px;
-  min-height: 100px;
-  position: relative;
-}
-.project-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Expanded card on hover */
-.project-card.expanded {
-  max-height: 700px;
-}
-h3 {
-  text-align: center;
-}
-
-/* Hide extra details initially */
-.expanded-details {
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-}
-
-/* Show extra details when expanded */
-.expanded-details.visible {
-  opacity: 1;
-  max-height: 650px;
-  max-width: 400px;
-}
-
-/* Project Button Styling */
-.project-button {
-  background-color: #ad7cc6; /* Bright orange */
-  color: rgb(208, 205, 205);
   border: none;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-  transition: background 0.3s ease-in-out;
+  height: 100%;
 }
 
-.project-button:hover {
-  background-color: #7548b8; /* Darker orange */
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Accent bar on top ---------- */
+.accent-bar {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+/* ---------- Tech badges ---------- */
+.tech-badge {
+  font-size: 0.75rem;
+  background: #e5e7eb;
+  color: #374151;
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin: 3px;
+}
+
+/* ---------- Project Button ---------- */
+.view-btn {
+  display: inline-block;
+  background-color: #028090; /* Main accent */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: #056b78;
+  transform: scale(1.03);
+}
+
+/* ---------- Card Text ---------- */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
 }

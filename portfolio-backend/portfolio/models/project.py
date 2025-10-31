@@ -11,10 +11,10 @@ class Project(models.Model):
         ('Game Development', 'Game Development'),
         ('DSA', 'DSA')
     ])
-    role = models.CharField(max_length=255)  # Example: Backend Developer
+    role = models.CharField(max_length=255)
     skills_learned = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
-    repo_link = models.URLField(max_length=500, blank=True, null=True)  # 🔹 New field
+    repo_link = models.URLField(max_length=500, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
