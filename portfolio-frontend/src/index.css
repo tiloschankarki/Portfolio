@@ -1,38 +1,24 @@
-/* 🌎 Universal Reset */
-* {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: smooth font + scroll behavior */
+html {
+  scroll-behavior: smooth;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* You can also add minor global resets here if needed */
+body {
+  background-color: #FDFFFC;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
-
-/* 🧩 Base Styles */
-body {
-  background-color: #f9fafb;
-  font-family: "Poppins", sans-serif;
-  color: #111827;
+/* index.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
-
-/* ✨ Links */
-a {
-  color: #028090;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: #f45b69;
-}
-
-/* 🎛️ Buttons */
-button {
-  background-color: #028090;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-  background-color: #056b78;
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
