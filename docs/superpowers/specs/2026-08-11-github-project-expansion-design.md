@@ -8,13 +8,13 @@ Expand the portfolio's Projects section with polished case studies based on Tilo
 
 - Keep the existing Projects page and database-driven architecture.
 - Exclude the `Portfolio` repository because it is the site currently being viewed.
-- Review every other repository and represent each meaningful, distinct project.
+- Review the approved repositories and represent each meaningful, distinct project that is not already covered.
 - Preserve existing project records unless a repository clearly represents the same work.
 - Leave Blog, Education, Certifications, Hobby, Contact, and the homepage structure unchanged.
 
 ## Repository Selection and Deduplication
 
-The initial repository inventory includes:
+The approved repository inventory includes:
 
 - Pynance
 - SystemSecurityProject
@@ -24,6 +24,9 @@ The initial repository inventory includes:
 - Learning-Amazon-Sentiment
 - Resume-Screener
 - SearchEnginePr
+
+The following repositories are explicitly excluded from this expansion:
+
 - Race-dataset
 - Python-Project
 - 1st-project
@@ -33,9 +36,9 @@ For each repository:
 1. Compare its purpose with existing project records.
 2. If it matches an existing project, enrich that record with the repository-derived title, description, stack, role, skills, and link instead of creating a duplicate.
 3. If it is distinct and has enough substance to explain, create a new project record.
-4. If an early repository is only a fragment or is already fully represented by a stronger existing record, preserve the stronger record and do not create a redundant card.
+4. Do not create entries for the three explicitly excluded repositories.
 
-`whats-the-move` is expected to enrich the existing "What's the move?" record. `Python-Project` and `1st-project` require comparison with the existing miniature Python, sorting, calculator, and C++ records before deciding whether they warrant separate cards.
+`whats-the-move` is expected to enrich the existing "What's the move?" record. Any other approved repository that clearly matches an existing card will enrich that card rather than create a duplicate.
 
 ## Project Content Standard
 
@@ -105,7 +108,7 @@ The frontend will preserve the current project-card design. Any ordering mechani
 
 ## Success Criteria
 
-- Every meaningful non-Portfolio repository is represented or explicitly deduplicated against an existing project.
+- Every approved repository is represented or explicitly deduplicated against an existing project.
 - Project descriptions are accurate, concise, and professor-friendly.
 - Public and private repository behavior is clear and safe.
 - Existing portfolio content is preserved.
