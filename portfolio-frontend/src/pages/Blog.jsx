@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowRight, Calendar, Clock, X } from "lucide-react";
-
-const API_BASE_URL = "https://tfolio.duckdns.org/api";
+import { API_BASE_URL } from "../apiConfig";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -122,4 +121,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
