@@ -15,12 +15,14 @@ from .serializers import (
     ContactMessageSerializer, HobbySerializer
 )
 
+PROJECT_ORDER = ("display_order", "-created_at", "id")
+
 
 # ----------------- PROJECTS -----------------
 @api_view(['GET'])
 def get_projects(request):
-    """Fetch all projects (latest first)."""
-    projects = Project.objects.all().order_by('-created_at')
+    """Fetch all projects in curated display order."""
+    projects = Project.objects.order_by(*PROJECT_ORDER)
     serializer = ProjectSerializer(projects, many=True)
     return Response(serializer.data)
 
@@ -99,7 +101,7 @@ def get_homepage_summary(request):
     Fetch a summarized preview of all sections for the landing page.
     This helps render a compact 'showcase' on /home.
     """
-    latest_projects = Project.objects.all().order_by('-created_at')[:3]
+    latest_projects = Project.objects.order_by(*PROJECT_ORDER)[:3]
     recent_blogs = BlogPost.objects.all().order_by('-created_at')[:2]
     certifications = Certification.objects.all().order_by('-issue_date')[:2]
     hobbies = Hobby.objects.all()[:3]
