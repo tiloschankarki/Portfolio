@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
 from django.db import models
+from urllib.parse import urlparse
 
 
 class BlogPost(models.Model):
@@ -37,11 +37,9 @@ class BlogPost(models.Model):
         default='Completed',
     )
     research_area = models.CharField(max_length=120, default='General')
-    pdf = models.FileField(
-        upload_to='research_pdfs/',
+    pdf_url = models.URLField(
         blank=True,
-        null=True,
-        validators=[FileExtensionValidator(['pdf'])],
+        help_text='Link to a PDF stored on GitHub.',
     )
     created_at = models.DateTimeField(auto_now_add=True)
     reading_time = models.IntegerField(default=5)
@@ -52,12 +50,22 @@ class BlogPost(models.Model):
 
     @property
     def has_pdf(self):
-        return bool(self.pdf)
+        return bool(self.pdf_url)
 
     def clean(self):
         super().clean()
         if not self.has_web_content and not self.has_pdf:
             raise ValidationError('A research entry requires web content or a PDF.')
+        if self.pdf_url:
+            parsed_url = urlparse(self.pdf_url)
+            if parsed_url.hostname not in {'github.com', 'raw.githubusercontent.com'}:
+                raise ValidationError({
+                    'pdf_url': 'Use a GitHub-hosted PDF link.',
+                })
+            if not parsed_url.path.lower().endswith('.pdf'):
+                raise ValidationError({
+                    'pdf_url': 'The GitHub PDF link must end in .pdf.',
+                })
 
     def __str__(self):
         return self.title

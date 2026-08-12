@@ -27,10 +27,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_pdf_url(self, obj):
-        if not obj.pdf:
-            return None
-        request = self.context.get('request')
-        return request.build_absolute_uri(obj.pdf.url) if request else obj.pdf.url
+        return obj.pdf_url or None
 
 class CourseworkSerializer(serializers.ModelSerializer):
     class Meta:

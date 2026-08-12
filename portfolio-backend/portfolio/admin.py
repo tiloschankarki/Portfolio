@@ -34,7 +34,7 @@ class ResearchEntryAdmin(admin.ModelAdmin):
             'fields': ('content_type', 'status'),
         }),
         ('Reading options', {
-            'fields': ('content', 'reading_time', 'pdf'),
+            'fields': ('content', 'reading_time', 'pdf_url'),
         }),
         ('Legacy metadata', {
             'fields': ('category',),

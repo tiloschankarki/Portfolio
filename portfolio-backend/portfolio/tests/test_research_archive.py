@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -25,7 +24,7 @@ class ResearchArchiveModelTests(TestCase):
         with self.assertRaisesMessage(ValidationError, "content or a PDF"):
             post.full_clean()
 
-    def test_pdf_can_be_the_only_readable_destination(self):
+    def test_github_pdf_link_can_be_the_only_readable_destination(self):
         post = BlogPost(
             title="Formal proposal",
             description="A proposal summary",
@@ -33,7 +32,7 @@ class ResearchArchiveModelTests(TestCase):
             content_type="Proposal",
             status="Draft",
             research_area="Trustworthy AI",
-            pdf=SimpleUploadedFile("proposal.pdf", b"%PDF-1.4"),
+            pdf_url="https://github.com/tiloschankarki/research/blob/main/proposal.pdf",
         )
 
         post.full_clean()
@@ -41,15 +40,26 @@ class ResearchArchiveModelTests(TestCase):
         self.assertFalse(post.has_web_content)
         self.assertTrue(post.has_pdf)
 
-    def test_non_pdf_upload_is_rejected(self):
+    def test_non_github_pdf_link_is_rejected(self):
         post = BlogPost(
-            title="Bad file",
-            description="Invalid attachment",
+            title="Bad link",
+            description="Invalid PDF location",
             content="",
-            pdf=SimpleUploadedFile("notes.txt", b"notes"),
+            pdf_url="https://example.com/proposal.pdf",
         )
 
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(ValidationError, "GitHub-hosted PDF"):
+            post.full_clean()
+
+    def test_github_link_must_point_to_a_pdf(self):
+        post = BlogPost(
+            title="Bad extension",
+            description="Not a PDF",
+            content="",
+            pdf_url="https://github.com/tiloschankarki/research/blob/main/notes.txt",
+        )
+
+        with self.assertRaisesMessage(ValidationError, "end in .pdf"):
             post.full_clean()
 
 
@@ -105,3 +115,21 @@ class ResearchArchiveApiTests(TestCase):
             "reading_time",
         ):
             self.assertIn(field, payload)
+
+    def test_api_returns_the_stored_github_pdf_link(self):
+        pdf_url = (
+            "https://github.com/tiloschankarki/research/"
+            "blob/main/papers/proposal.pdf"
+        )
+        BlogPost.objects.create(
+            title="Proposal",
+            description="Summary",
+            content="",
+            pdf_url=pdf_url,
+        )
+
+        payload = self.client.get("/api/blog/").data[0]
+
+        self.assertEqual(payload["pdf_url"], pdf_url)
+        self.assertTrue(payload["has_pdf"])
+        self.assertFalse(payload["has_web_content"])
