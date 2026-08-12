@@ -1,0 +1,55 @@
+import {
+  ALL_AREAS,
+  filterResearchEntries,
+  getEntryActions,
+  getResearchAreas,
+} from "./researchArchive";
+
+const entries = [
+  {
+    id: 1,
+    research_area: "Trustworthy AI",
+    content: "Body",
+    pdf_url: null,
+  },
+  {
+    id: 2,
+    research_area: "Cybersecurity",
+    content: "",
+    pdf_url: "https://example.test/paper.pdf",
+  },
+  {
+    id: 3,
+    research_area: "Trustworthy AI",
+    content: "  ",
+    pdf_url: null,
+  },
+];
+
+test("builds a compact alphabetized research-area filter list", () => {
+  expect(getResearchAreas(entries)).toEqual([
+    ALL_AREAS,
+    "Cybersecurity",
+    "Trustworthy AI",
+  ]);
+});
+
+test("filters by one area and keeps All unfiltered", () => {
+  expect(filterResearchEntries(entries, "Trustworthy AI")).toHaveLength(2);
+  expect(filterResearchEntries(entries, ALL_AREAS)).toEqual(entries);
+});
+
+test("derives only valid actions", () => {
+  expect(getEntryActions(entries[0])).toEqual({
+    canRead: true,
+    canViewPdf: false,
+  });
+  expect(getEntryActions(entries[1])).toEqual({
+    canRead: false,
+    canViewPdf: true,
+  });
+  expect(getEntryActions(entries[2])).toEqual({
+    canRead: false,
+    canViewPdf: false,
+  });
+});
