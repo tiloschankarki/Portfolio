@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Linkedin, Github, Send, Instagram } from "lucide-react";
+import { API_BASE_URL } from "../apiConfig";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -8,8 +9,6 @@ const Contact = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [charCount, setCharCount] = useState(0);
-
-  const API_BASE_URL = "https://tfolio.duckdns.org/api";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -134,7 +133,7 @@ const Contact = () => {
                   tiloschankarki@gmail.com
                 </a>
               </li>
-              <li>🌐 tfolio.duckdns.org</li>
+              <li>🌐 tfolio-backend.onrender.com</li>
               <li>📍 Texas, USA</li>
             </ul>
 

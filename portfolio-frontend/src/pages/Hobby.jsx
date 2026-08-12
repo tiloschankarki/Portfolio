@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-const API_BASE_URL = "https://tfolio.duckdns.org/api";
+import { API_BASE_URL } from "../apiConfig";
 
 const Hobby = () => {
   const [hobbies, setHobbies] = useState([]);

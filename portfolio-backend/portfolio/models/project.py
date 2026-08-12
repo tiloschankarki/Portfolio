@@ -15,7 +15,12 @@ class Project(models.Model):
     skills_learned = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
     repo_link = models.URLField(max_length=500, blank=True, null=True)
+    source_key = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    display_order = models.PositiveIntegerField(default=100, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("display_order", "-created_at", "id")
 
     def __str__(self):
         return self.title
