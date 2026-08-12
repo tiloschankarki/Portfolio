@@ -18,9 +18,19 @@ class CertificationSerializer(serializers.ModelSerializer):
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
+    pdf_url = serializers.SerializerMethodField()
+    has_web_content = serializers.ReadOnlyField()
+    has_pdf = serializers.ReadOnlyField()
+
     class Meta:
         model = BlogPost
         fields = '__all__'
+
+    def get_pdf_url(self, obj):
+        if not obj.pdf:
+            return None
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.pdf.url) if request else obj.pdf.url
 
 class CourseworkSerializer(serializers.ModelSerializer):
     class Meta:

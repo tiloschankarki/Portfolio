@@ -39,9 +39,13 @@ def get_certifications(request):
 # ----------------- BLOG POSTS -----------------
 @api_view(['GET'])
 def get_blog_posts(request):
-    """Fetch all blog posts (latest first)."""
-    blog_posts = BlogPost.objects.all().order_by('-created_at')
-    serializer = BlogPostSerializer(blog_posts, many=True)
+    """Fetch research archive entries, newest first."""
+    blog_posts = BlogPost.objects.order_by('-created_at', '-id')
+    serializer = BlogPostSerializer(
+        blog_posts,
+        many=True,
+        context={'request': request},
+    )
     return Response(serializer.data)
 
 
