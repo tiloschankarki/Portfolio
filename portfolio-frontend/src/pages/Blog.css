@@ -6,7 +6,10 @@
   min-height: 100vh;
   position: relative;
   color: var(--archive-navy);
-  background: var(--archive-paper) url("/1.jpg") center / cover fixed;
+  background-color: var(--archive-paper);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .research-archive__overlay {

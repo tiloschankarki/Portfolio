@@ -58,7 +58,10 @@ const Blog = () => {
   };
 
   return (
-    <main className="research-archive">
+    <main
+      className="research-archive"
+      style={{ backgroundImage: "url('/1.jpg')" }}
+    >
       <div className="research-archive__overlay" />
       <div className="research-archive__container">
         <header className="research-archive__header">
