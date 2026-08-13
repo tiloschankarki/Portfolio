@@ -1,6 +1,7 @@
 import {
   ALL_AREAS,
   filterResearchEntries,
+  getContentExcerpt,
   getEntryActions,
   getResearchAreas,
 } from "./researchArchive";
@@ -52,4 +53,10 @@ test("derives only valid actions", () => {
     canRead: false,
     canViewPdf: false,
   });
+});
+
+test("normalizes full content for a concise collapsed excerpt", () => {
+  expect(getContentExcerpt("First paragraph.\n\nSecond   paragraph.")).toBe(
+    "First paragraph. Second paragraph."
+  );
 });

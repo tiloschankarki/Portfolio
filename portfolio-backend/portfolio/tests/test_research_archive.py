@@ -1,11 +1,124 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.db import connection
+from django.db.migrations.executor import MigrationExecutor
+from django.test import TestCase, TransactionTestCase
 from django.utils import timezone
 from rest_framework.test import APIClient
 
 from datetime import timedelta
+from importlib import import_module
 
 from portfolio.models.blog import BlogPost
+
+
+class IoTPaperMigrationTests(TransactionTestCase):
+    migrate_from = [("portfolio", "0006_research_archive_fields")]
+    migrate_to = [("portfolio", "0007_add_iot_malware_research_paper")]
+    title = "IoT Malware Detection: Reproducing and Improving CTU-IoT-23 Results"
+
+    def test_migration_creates_one_complete_iot_paper(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        apps = executor.loader.project_state(self.migrate_to).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+
+        matches = HistoricalBlogPost.objects.filter(title=self.title)
+        self.assertEqual(matches.count(), 1)
+        paper = matches.get()
+        self.assertEqual(paper.content_type, "Paper")
+        self.assertEqual(paper.status, "Completed")
+        self.assertEqual(
+            paper.research_area, "Cybersecurity & Machine Learning"
+        )
+        self.assertEqual(paper.category, "AI/ML")
+        self.assertEqual(paper.pdf_url, "")
+        for phrase in (
+            "CTU-IoT-23",
+            "decision-tree",
+            "random-forest",
+            "improves the reported evaluation metrics",
+            "clearer interactive visualizations",
+        ):
+            self.assertIn(phrase, paper.content)
+
+        migration = import_module(
+            "portfolio.migrations.0007_add_iot_malware_research_paper"
+        )
+        migration.add_iot_malware_paper(apps, None)
+        migration.add_iot_malware_paper(apps, None)
+        self.assertEqual(
+            HistoricalBlogPost.objects.filter(title=self.title).count(), 1
+        )
+
+    def test_title_collision_is_preserved_forward_and_backward(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        apps = executor.loader.project_state(self.migrate_from).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        collision = HistoricalBlogPost.objects.create(
+            title=self.title,
+            description="User-authored record",
+            content="Original research content",
+            category="Engineering",
+            content_type="Research Note",
+            status="Draft",
+            research_area="Personal",
+            pdf_url="",
+            reading_time=3,
+        )
+
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        preserved = HistoricalBlogPost.objects.get(pk=collision.pk)
+        self.assertEqual(preserved.description, "User-authored record")
+        self.assertEqual(preserved.content, "Original research content")
+        self.assertEqual(
+            HistoricalBlogPost.objects.filter(title=self.title).count(), 1
+        )
+
+    def test_backward_migration_preserves_the_generated_paper(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        apps = executor.loader.project_state(self.migrate_to).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        self.assertTrue(HistoricalBlogPost.objects.filter(title=self.title).exists())
+
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        self.assertTrue(
+            HistoricalBlogPost.objects.filter(title=self.title).exists()
+        )
+
+    def test_identical_preexisting_paper_survives_forward_and_backward(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        apps = executor.loader.project_state(self.migrate_from).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        migration = import_module(
+            "portfolio.migrations.0007_add_iot_malware_research_paper"
+        )
+        collision = HistoricalBlogPost.objects.create(
+            title=self.title,
+            **migration.PAPER_VALUES,
+        )
+
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        self.assertTrue(HistoricalBlogPost.objects.filter(pk=collision.pk).exists())
+        self.assertEqual(
+            HistoricalBlogPost.objects.filter(title=self.title).count(), 1
+        )
 
 
 class ResearchArchiveModelTests(TestCase):

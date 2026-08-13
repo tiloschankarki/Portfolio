@@ -5,6 +5,7 @@ import { API_BASE_URL } from "../apiConfig";
 import {
   ALL_AREAS,
   filterResearchEntries,
+  getContentExcerpt,
   getEntryActions,
   getResearchAreas,
 } from "../researchArchive";
@@ -151,7 +152,7 @@ const Blog = () => {
 
                     <h2>{entry.title}</h2>
                     <p className="research-entry__summary">
-                      {entry.description || entry.content}
+                      {getContentExcerpt(entry.content)}
                     </p>
 
                     <div className="research-entry__actions">

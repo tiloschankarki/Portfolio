@@ -12,6 +12,9 @@ export const filterResearchEntries = (entries, area) =>
     ? entries
     : entries.filter((entry) => entry.research_area === area);
 
+export const getContentExcerpt = (content = "") =>
+  content.replace(/\s+/g, " ").trim();
+
 export const getEntryActions = (entry) => ({
   canRead: Boolean(entry.content && entry.content.trim()),
   canViewPdf: Boolean(entry.pdf_url),
