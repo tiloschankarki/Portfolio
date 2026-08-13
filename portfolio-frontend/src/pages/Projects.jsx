@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Github } from "lucide-react";
-
-const API_BASE_URL = "https://tfolio.duckdns.org/api";
+import { API_BASE_URL } from "../apiConfig";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);

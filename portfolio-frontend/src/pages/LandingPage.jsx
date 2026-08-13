@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowRight, Code2, Award, Send, Github } from "lucide-react";
-
-// ✅ Backend base URL
-const API_BASE_URL = "https://tfolio.duckdns.org/api";
+import { API_BASE_URL } from "../apiConfig";
 
 const LandingPage = () => {
   const [projects, setProjects] = useState([]);

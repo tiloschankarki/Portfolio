@@ -10,6 +10,15 @@ import Contact from "./pages/Contact";
 import Hobby from "./pages/Hobby";
 import "./App.css";
 
+const navigationItems = [
+  { label: "Education", path: "/education" },
+  { label: "Projects", path: "/projects" },
+  { label: "Research Areas & Interests", path: "/blog" },
+  { label: "Certifications", path: "/certifications" },
+  { label: "Hobby", path: "/hobby" },
+  { label: "Contact", path: "/contact" },
+];
+
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -53,12 +62,12 @@ function App() {
 
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto">
-              {["Education", "Projects", "Blog", "Certifications", "Hobby", "Contact"].map(
-                (item) => (
+              {navigationItems.map(
+                ({ label, path }) => (
                   <Nav.Link
-                    key={item}
+                    key={path}
                     as={Link}
-                    to={`/${item.toLowerCase()}`}
+                    to={path}
                     style={{
                       color: "white",
                       fontWeight: "500",
@@ -68,7 +77,7 @@ function App() {
                     onMouseEnter={(e) => (e.target.style.color = "#41EAD4")}
                     onMouseLeave={(e) => (e.target.style.color = "white")}
                   >
-                    {item}
+                    {label}
                   </Nav.Link>
                 )
               )}
