@@ -7,8 +7,8 @@ const records = [
   {
     id: 1,
     title: "Faithfulness in Language Models",
-    description: "A proposal for evaluating explanation faithfulness.",
-    content: "Full proposal text.",
+    description: "Admin-written description.",
+    content: `${"Full proposal text with supporting evidence. ".repeat(10)}Private expanded paragraph.`,
     category: "AI/ML",
     content_type: "Proposal",
     status: "In Progress",
@@ -99,13 +99,30 @@ test("opens and closes full content inline", async () => {
     })
   );
 
-  expect(screen.getByText("Full proposal text.")).toBeInTheDocument();
+  expect(screen.getByText(/Private expanded paragraph/)).toBeInTheDocument();
   await user.click(
     screen.getByRole("button", {
       name: "Close Faithfulness in Language Models",
     })
   );
-  expect(screen.queryByText("Full proposal text.")).not.toBeInTheDocument();
+  expect(screen.queryByText(/Private expanded paragraph/)).not.toBeInTheDocument();
+});
+
+test("keeps the end of full content hidden until Read is selected", async () => {
+  const user = userEvent.setup();
+  render(<Blog />);
+
+  expect(
+    await screen.findByText(/Full proposal text with supporting evidence/)
+  ).toBeInTheDocument();
+  expect(screen.queryByText("Admin-written description.")).not.toBeInTheDocument();
+  expect(screen.queryByText(/Private expanded paragraph/)).not.toBeInTheDocument();
+
+  await user.click(
+    screen.getByRole("button", { name: "Read Faithfulness in Language Models" })
+  );
+
+  expect(screen.getByText(/Private expanded paragraph/)).toBeInTheDocument();
 });
 
 test("offers retry after a request failure", async () => {

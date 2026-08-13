@@ -12,6 +12,17 @@ export const filterResearchEntries = (entries, area) =>
     ? entries
     : entries.filter((entry) => entry.research_area === area);
 
+export const getContentExcerpt = (content = "", maxLength = 260) => {
+  const normalized = content.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const clipped = normalized.slice(0, maxLength - 1);
+  const lastSpace = clipped.lastIndexOf(" ");
+  return `${clipped.slice(0, lastSpace > 0 ? lastSpace : undefined).trim()}…`;
+};
+
 export const getEntryActions = (entry) => ({
   canRead: Boolean(entry.content && entry.content.trim()),
   canViewPdf: Boolean(entry.pdf_url),
