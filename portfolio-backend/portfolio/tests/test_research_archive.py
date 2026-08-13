@@ -81,7 +81,7 @@ class IoTPaperMigrationTests(TransactionTestCase):
             HistoricalBlogPost.objects.filter(title=self.title).count(), 1
         )
 
-    def test_backward_migration_removes_an_untouched_generated_paper(self):
+    def test_backward_migration_preserves_the_generated_paper(self):
         executor = MigrationExecutor(connection)
         executor.migrate(self.migrate_from)
         executor = MigrationExecutor(connection)
@@ -93,8 +93,31 @@ class IoTPaperMigrationTests(TransactionTestCase):
         executor = MigrationExecutor(connection)
         executor.migrate(self.migrate_from)
 
-        self.assertFalse(
+        self.assertTrue(
             HistoricalBlogPost.objects.filter(title=self.title).exists()
+        )
+
+    def test_identical_preexisting_paper_survives_forward_and_backward(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        apps = executor.loader.project_state(self.migrate_from).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        migration = import_module(
+            "portfolio.migrations.0007_add_iot_malware_research_paper"
+        )
+        collision = HistoricalBlogPost.objects.create(
+            title=self.title,
+            **migration.PAPER_VALUES,
+        )
+
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        self.assertTrue(HistoricalBlogPost.objects.filter(pk=collision.pk).exists())
+        self.assertEqual(
+            HistoricalBlogPost.objects.filter(title=self.title).count(), 1
         )
 
 

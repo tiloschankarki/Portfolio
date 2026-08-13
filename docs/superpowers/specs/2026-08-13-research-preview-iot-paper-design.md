@@ -30,7 +30,7 @@ Add the existing IoT Malware Detection work to the research archive with these v
 - Content: a concise account of reproducing a CTU-IoT-23 research approach, comparing decision-tree and random-forest models, improving evaluation metrics, and presenting results through clearer visualizations.
 - PDF URL: empty until a GitHub-hosted PDF is added through Django admin.
 
-The existing Projects entry remains unchanged. The new research entry is created through an idempotent Django data migration so it appears once in PostgreSQL and is not duplicated by later deployments.
+The existing Projects entry remains unchanged. The new research entry is created through an idempotent Django data migration so it appears once in PostgreSQL and is not duplicated by later deployments. Its reverse operation preserves the research record because, without adding an ownership field, a migration-created row cannot be safely distinguished from identical user-authored content.
 
 ## Testing and release
 

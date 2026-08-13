@@ -4,7 +4,7 @@
 
 **Goal:** Make collapsed research entries concise and palette-consistent, and add the IoT malware-detection work to the research archive as one completed paper.
 
-**Architecture:** Keep the existing React archive structure and derive a normalized excerpt from each entry's `content`, with CSS line clamping controlling its collapsed height. Add the IoT paper through a reversible, idempotent Django data migration keyed by its exact title, leaving the Projects catalog unchanged.
+**Architecture:** Keep the existing React archive structure and derive a normalized excerpt from each entry's `content`, with CSS line clamping controlling its collapsed height. Add the IoT paper through an idempotent Django data migration keyed by its exact title, leaving the Projects catalog unchanged. Rollback deliberately preserves the row to avoid deleting indistinguishable user-authored data without introducing an ownership schema field.
 
 **Tech Stack:** React 18, Create React App, Testing Library/Jest, CSS, Django 5.1, Django migrations and test runner.
 
@@ -187,9 +187,9 @@ Run:
 
 Expected: FAIL because migration `0007_add_iot_malware_research_paper` does not exist.
 
-- [ ] **Step 3: Implement the reversible data migration**
+- [ ] **Step 3: Implement the collision-safe data migration**
 
-Create migration `0007` depending on `0006`. Its forward function calls `get_or_create(title=TITLE, defaults={...})`; its reverse function deletes only the row with the exact title. Store this content:
+Create migration `0007` depending on `0006`. Its forward function calls `get_or_create(title=TITLE, defaults={...})`; its reverse is a documented no-op because migration-created and byte-for-byte identical pre-existing records cannot be distinguished safely without a schema field. Store this content:
 
 ```text
 This paper recreates an intrusion-detection study using the CTU-IoT-23 network-traffic dataset and evaluates whether learned patterns generalize across malware scenarios and IoT devices. It compares decision-tree and random-forest classifiers, improves the reported evaluation metrics through careful preprocessing and scenario-based testing, and presents the findings with clearer interactive visualizations so model performance and error patterns are easier to interpret.
