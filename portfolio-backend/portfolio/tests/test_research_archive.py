@@ -81,6 +81,22 @@ class IoTPaperMigrationTests(TransactionTestCase):
             HistoricalBlogPost.objects.filter(title=self.title).count(), 1
         )
 
+    def test_backward_migration_removes_an_untouched_generated_paper(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_to)
+        apps = executor.loader.project_state(self.migrate_to).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        self.assertTrue(HistoricalBlogPost.objects.filter(title=self.title).exists())
+
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        self.assertFalse(
+            HistoricalBlogPost.objects.filter(title=self.title).exists()
+        )
+
 
 class ResearchArchiveModelTests(TestCase):
     def test_archive_defaults_preserve_existing_blog_semantics(self):
