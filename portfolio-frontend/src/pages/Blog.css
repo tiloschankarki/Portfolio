@@ -3,6 +3,7 @@
   --archive-paper: #fdfffc;
   --archive-turquoise: #41ead4;
   --archive-coral: #f71735;
+  --archive-muted: #52636c;
   min-height: 100vh;
   position: relative;
   color: var(--archive-navy);
@@ -33,7 +34,7 @@
 
 .research-archive__eyebrow {
   margin: 0 0 10px;
-  color: #537078;
+  color: var(--archive-muted);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -60,7 +61,7 @@
 .research-archive__intro {
   max-width: 650px;
   margin: 24px 0 0;
-  color: #52636c;
+  color: var(--archive-muted);
   font-size: 1.06rem;
   line-height: 1.75;
 }
@@ -123,7 +124,7 @@
   align-self: start;
   gap: 7px;
   padding-top: 4px;
-  color: #607078;
+  color: var(--archive-muted);
   font-size: 0.83rem;
   font-weight: 600;
 }
@@ -163,7 +164,7 @@
 .research-label--area {
   border: 1px solid rgba(1, 22, 39, 0.13);
   background: rgba(253, 255, 252, 0.72);
-  color: #52636c;
+  color: var(--archive-muted);
 }
 
 .research-entry h2 {
@@ -174,10 +175,14 @@
 }
 
 .research-entry__summary {
+  display: -webkit-box;
   max-width: 720px;
   margin: 10px 0 0;
-  color: #53656e;
+  overflow: hidden;
+  color: var(--archive-muted);
   line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .research-entry__actions {
@@ -213,7 +218,7 @@
   padding: 24px 26px;
   border-left: 3px solid var(--archive-turquoise);
   background: rgba(1, 22, 39, 0.035);
-  color: #263b47;
+  color: var(--archive-muted);
   line-height: 1.8;
   white-space: pre-line;
 }
@@ -221,7 +226,7 @@
 .research-state {
   padding: 54px 24px;
   border-block: 1px solid rgba(1, 22, 39, 0.15);
-  color: #52636c;
+  color: var(--archive-muted);
   text-align: center;
 }
 
