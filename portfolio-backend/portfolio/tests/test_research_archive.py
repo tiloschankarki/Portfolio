@@ -6,6 +6,7 @@ from django.utils import timezone
 from rest_framework.test import APIClient
 
 from datetime import timedelta
+from importlib import import_module
 
 from portfolio.models.blog import BlogPost
 
@@ -42,8 +43,40 @@ class IoTPaperMigrationTests(TransactionTestCase):
         ):
             self.assertIn(phrase, paper.content)
 
+        migration = import_module(
+            "portfolio.migrations.0007_add_iot_malware_research_paper"
+        )
+        migration.add_iot_malware_paper(apps, None)
+        migration.add_iot_malware_paper(apps, None)
+        self.assertEqual(
+            HistoricalBlogPost.objects.filter(title=self.title).count(), 1
+        )
+
+    def test_title_collision_is_preserved_forward_and_backward(self):
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+        apps = executor.loader.project_state(self.migrate_from).apps
+        HistoricalBlogPost = apps.get_model("portfolio", "BlogPost")
+        collision = HistoricalBlogPost.objects.create(
+            title=self.title,
+            description="User-authored record",
+            content="Original research content",
+            category="Engineering",
+            content_type="Research Note",
+            status="Draft",
+            research_area="Personal",
+            pdf_url="",
+            reading_time=3,
+        )
+
         executor = MigrationExecutor(connection)
         executor.migrate(self.migrate_to)
+        executor = MigrationExecutor(connection)
+        executor.migrate(self.migrate_from)
+
+        preserved = HistoricalBlogPost.objects.get(pk=collision.pk)
+        self.assertEqual(preserved.description, "User-authored record")
+        self.assertEqual(preserved.content, "Original research content")
         self.assertEqual(
             HistoricalBlogPost.objects.filter(title=self.title).count(), 1
         )

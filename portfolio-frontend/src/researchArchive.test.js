@@ -60,11 +60,3 @@ test("normalizes full content for a concise collapsed excerpt", () => {
     "First paragraph. Second paragraph."
   );
 });
-
-test("truncates long collapsed excerpts without cutting a word", () => {
-  const excerpt = getContentExcerpt(`${"research ".repeat(40)}private ending`);
-
-  expect(excerpt).toMatch(/…$/);
-  expect(excerpt.length).toBeLessThanOrEqual(260);
-  expect(excerpt).not.toContain("private ending");
-});

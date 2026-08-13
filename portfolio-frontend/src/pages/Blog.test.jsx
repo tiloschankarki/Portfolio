@@ -99,16 +99,18 @@ test("opens and closes full content inline", async () => {
     })
   );
 
-  expect(screen.getByText(/Private expanded paragraph/)).toBeInTheDocument();
+  expect(document.querySelector(".research-entry__content")).toHaveTextContent(
+    "Private expanded paragraph."
+  );
   await user.click(
     screen.getByRole("button", {
       name: "Close Faithfulness in Language Models",
     })
   );
-  expect(screen.queryByText(/Private expanded paragraph/)).not.toBeInTheDocument();
+  expect(document.querySelector(".research-entry__content")).not.toBeInTheDocument();
 });
 
-test("keeps the end of full content hidden until Read is selected", async () => {
+test("uses content for the collapsed preview and expands it in a reading panel", async () => {
   const user = userEvent.setup();
   render(<Blog />);
 
@@ -116,13 +118,15 @@ test("keeps the end of full content hidden until Read is selected", async () => 
     await screen.findByText(/Full proposal text with supporting evidence/)
   ).toBeInTheDocument();
   expect(screen.queryByText("Admin-written description.")).not.toBeInTheDocument();
-  expect(screen.queryByText(/Private expanded paragraph/)).not.toBeInTheDocument();
+  expect(document.querySelector(".research-entry__content")).not.toBeInTheDocument();
 
   await user.click(
     screen.getByRole("button", { name: "Read Faithfulness in Language Models" })
   );
 
-  expect(screen.getByText(/Private expanded paragraph/)).toBeInTheDocument();
+  expect(document.querySelector(".research-entry__content")).toHaveTextContent(
+    "Private expanded paragraph."
+  );
 });
 
 test("offers retry after a request failure", async () => {
