@@ -181,7 +181,7 @@ const Blog = () => {
                           rel="noopener noreferrer"
                           aria-label={`Follow the document for ${entry.title}`}
                         >
-                          View PDF
+                          Follow the document
                           <ExternalLink aria-hidden="true" size={15} />
                         </a>
                       )}
