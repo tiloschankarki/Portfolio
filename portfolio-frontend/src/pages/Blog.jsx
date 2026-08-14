@@ -179,7 +179,7 @@ const Blog = () => {
                           href={entry.pdf_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`View PDF for ${entry.title}`}
+                          aria-label={`Follow the document for ${entry.title}`}
                         >
                           View PDF
                           <ExternalLink aria-hidden="true" size={15} />
