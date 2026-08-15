@@ -15,19 +15,16 @@ import dj_database_url
 from dotenv import load_dotenv
 from pathlib import Path
 load_dotenv()
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ✅ SECURITY: Use an environment variable for the secret key in production
+#SECURITY: Use an environment variable for the secret key in production
 SECRET_KEY = os.getenv("SECRET_KEY", "your-local-secret-key")
 
-# ✅ SECURITY: Set DEBUG to False for production
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Default to True for local dev
 
-# ✅ Allowed Hosts (Update after deployment)
 ALLOWED_HOSTS = ['*']
 
-# ✅ CORS & CSRF Settings
+# CORS & CSRF Settings
 CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -42,7 +39,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://your-frontend.vercel.app"
 ]
 
-# ✅ Application definition
+#Application definition
 INSTALLED_APPS = [
     'corsheaders',
     'portfolio',
@@ -91,12 +88,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-# ✅ Database Configuration: PostgreSQL for Production, SQLite for Local Development
+#Database Configuration: SQLite for Local Development
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
-# ✅ Password validation
+#Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -104,16 +101,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ✅ Internationalization
+#Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ✅ Default primary key field type
+#Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ✅ REST Framework Settings
+#REST Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',  # Force JSON output

@@ -24,7 +24,7 @@ def home(request):
     return HttpResponse("Django Backend is Running Successfully 🎉")
 
 urlpatterns = [
-    path('', home, name='home'),  # ✅ This makes "/" return a response
+    path('', home, name='home'),  #This makes "/" return a response
     path('admin/', admin.site.urls),
     path('api/', include('portfolio.urls')),
 ]

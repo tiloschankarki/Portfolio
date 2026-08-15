@@ -18,7 +18,7 @@ from .serializers import (
 PROJECT_ORDER = ("display_order", "-created_at", "id")
 
 
-# ----------------- PROJECTS -----------------
+# PROJECTS
 @api_view(['GET'])
 def get_projects(request):
     """Fetch all projects in curated display order."""
@@ -27,7 +27,7 @@ def get_projects(request):
     return Response(serializer.data)
 
 
-# ----------------- CERTIFICATIONS -----------------
+# CERTIFICATIONS
 @api_view(['GET'])
 def get_certifications(request):
     """Fetch all certifications (latest first)."""
@@ -36,7 +36,7 @@ def get_certifications(request):
     return Response(serializer.data)
 
 
-# ----------------- BLOG POSTS -----------------
+# BLOG POSTS 
 @api_view(['GET'])
 def get_blog_posts(request):
     """Fetch research archive entries, newest first."""
@@ -49,7 +49,7 @@ def get_blog_posts(request):
     return Response(serializer.data)
 
 
-# ----------------- EDUCATION -----------------
+# EDUCATION
 @api_view(['GET'])
 def get_education(request):
     """Fetch coursework and degree progress."""
@@ -69,7 +69,7 @@ def get_education(request):
     })
 
 
-# ----------------- HOBBIES -----------------
+#HOBBIES
 @api_view(['GET'])
 def get_hobbies(request):
     """Fetch all hobbies."""
@@ -78,7 +78,7 @@ def get_hobbies(request):
     return Response(serializer.data)
 
 
-# ----------------- CONTACT MESSAGES -----------------
+#CONTACT MESSAGES
 @api_view(['GET', 'POST'])
 def contact_messages(request):
     """GET: List all contact messages | POST: Submit a new message."""
@@ -98,7 +98,7 @@ def contact_messages(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ----------------- LANDING PAGE DATA (New!) -----------------
+#LANDING PAGE DATA (New!)
 @api_view(['GET'])
 def get_homepage_summary(request):
     """

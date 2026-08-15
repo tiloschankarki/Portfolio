@@ -42,8 +42,7 @@ const LandingPage = () => {
             Hey, I’m <span className="text-[#41EAD4]">Tiloschan Karki</span>
           </h1>
           <p className="text-lg text-gray-600 mb-6">
-            A Computer Science senior at Texas State University passionate about
-            building scalable and human-centered software solutions.
+            A passionate Full Stack Developer/Researcher and Computer Science graduate from Texas State University. I specialize in building responsive web applications and have a keen interest in AI/ML systems.
           </p>
 
           <div className="flex gap-4">

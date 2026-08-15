@@ -14,7 +14,7 @@ urlpatterns = [
     path('certifications/', get_certifications, name='get_certifications'),
     path('blog/', get_blog_posts, name='get_blog_posts'),
     path('education/', get_education, name='get_education'),
-    path('contact/', contact_messages, name='contact_messages'),  # ✅ GET + POST
+    path('contact/', contact_messages, name='contact_messages'),  #GET + POST
     path('hobbies/', get_hobbies, name='get_hobbies'),
 
     # New route for landing page combined data
